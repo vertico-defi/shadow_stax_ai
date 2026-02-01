@@ -1,0 +1,328 @@
+Phase 0 — Strategic Positioning (DO NOT SKIP)
+
+Objective: Make this project clearly read as
+
+“Production-grade LLM system with persona, memory, safety, and retrieval.”
+
+Resume Narrative Target
+
+Designed and implemented a stateful LLM system with persona persistence, long-term memory via RAG, relationship modeling, and safety-aware prompt orchestration using FastAPI, vector search, and local LLM inference.
+
+This phase determines all downstream architecture decisions.
+
+Hard Decisions (Final)
+
+Memory storage: SQLite + vector embeddings (FAISS or Chroma)
+
+Why: Recruiters love “SQLite + vector DB = lightweight production RAG”
+
+Model: Ollama 8B–14B instruct model
+
+Architecture: MVP first, but clean seams for scale
+
+Persona system: First-class schema (not prompt hacks)
+
+✅ Lock these in. No bikeshedding.
+
+Phase 1 — Persona & Relationship System (FOUNDATION)
+Goal
+
+Turn the chatbot from “stateless responder” into a consistent agent identity.
+
+Codex Orders
+
+Implement a formal persona + relationship model.
+
+Deliverables
+1. Persona Schema (static, versioned)
+
+Create persona.json
+
+Required fields:
+
+name
+
+role
+
+tone (controlled vocabulary)
+
+speaking_style
+
+boundaries (explicit allowed / refused categories)
+
+likes_dislikes
+
+goals
+
+refusal_style (in-character refusal template)
+
+✔ Resume keyword: Agent Identity Modeling
+
+2. Relationship State (dynamic, per conversation)
+
+Create relationship_state table
+
+Fields:
+
+conversation_id
+
+affinity_score (float)
+
+trust_level (enum)
+
+intimacy_level (enum)
+
+nicknames
+
+important_events[]
+
+last_updated
+
+✔ Resume keyword: User-Adaptive Agent Behavior
+
+Phase 2 — Long-Term Memory Architecture (HIGH-VALUE)
+Goal
+
+Implement real memory, not just chat history.
+
+Codex Orders
+
+Build a two-tier memory system: structured + vectorized.
+
+Storage (FINAL)
+
+SQLite for metadata
+
+Chroma or FAISS for embeddings
+
+One unified memory_id
+
+Memory Types (STRICT)
+
+User Facts
+
+Preferences / Boundaries
+
+Relationship Events
+
+Conversation Summaries
+
+Taboo / Safety Flags
+
+Tables
+
+memories
+
+memory_embeddings
+
+conversation_summary
+
+Extraction Pipeline
+
+On every user message:
+
+Run memory extractor (small model or rules)
+
+Classify memory type
+
+Store structured row
+
+Embed text
+
+Link to conversation + user
+
+✔ Resume keywords:
+
+Retrieval-Augmented Generation (RAG)
+
+Memory-Aware LLM Systems
+
+Embedding-Based Recall
+
+Phase 3 — Prompt Assembly Engine (CORE INTELLIGENCE)
+Goal
+
+Move from “prompt string” to prompt compiler.
+
+Codex Orders
+
+Implement deterministic prompt layering. No ad-hoc concatenation.
+
+Prompt Stack (ORDER IS NON-NEGOTIABLE)
+
+System Persona Prompt
+
+Safety Policy (explicit, scoped)
+
+Relationship State Summary
+
+Conversation Rolling Summary
+
+Retrieved Memories (top-k embeddings)
+
+Last N Turns (short-term memory)
+
+Implementation
+
+Single function: build_prompt(context)
+
+Inputs: conversation_id, user_id, message
+
+Output: final model-ready prompt
+
+✔ Resume keywords:
+
+Prompt Orchestration
+
+Context Window Optimization
+
+LLM State Management
+
+Phase 4 — Safety & NSFW Control (PROFESSIONAL-GRADE)
+Goal
+
+Allow adult content without risking illegal output.
+
+Codex Orders
+
+Split safety into input validation + output enforcement.
+
+Safety Layers
+
+Pre-LLM Input Scan
+
+In-Prompt Policy Constraints
+
+Post-LLM Output Scan
+
+Explicitly Block
+
+Minors (absolute)
+
+Coercion / trafficking
+
+Sexual violence
+
+Refusal Handling
+
+Must use persona’s refusal style
+
+Never break character
+
+Never mention policy
+
+✔ Resume keywords:
+
+Safety-Constrained Generation
+
+Content Moderation Pipelines
+
+Policy-Aware LLM Design
+
+Phase 5 — Memory Retrieval & Ranking (RAG QUALITY)
+Goal
+
+Make memory retrieval relevant, not noisy.
+
+Codex Orders
+
+Implement scored retrieval with filters.
+
+Retrieval Logic
+
+Embed current user message
+
+Query vector DB (top-k)
+
+Filter by:
+
+memory_type
+
+recency decay
+
+relationship relevance
+
+Re-rank by semantic + metadata score
+
+✔ Resume keywords:
+
+Semantic Search
+
+Vector Similarity Retrieval
+
+Contextual Relevance Scoring
+
+Phase 6 — Frontend Persistence & UX Signals
+Goal
+
+Make the system feel alive.
+
+Codex Orders
+
+Persist conversation_id in localStorage
+
+Restore relationship state on reload
+
+Optional:
+
+Relationship meter
+
+Persona name/avatar in header
+
+✔ Resume keywords:
+
+Stateful UX for AI Systems
+
+Human-Centered AI Design
+
+Phase 7 — Model & Inference Controls
+Goal
+
+Expose professional-grade control knobs.
+
+Codex Orders
+
+Configurable:
+
+temperature
+
+top_p
+
+max_tokens
+
+Context window ≥ 8k
+
+Model selectable via config (Ollama)
+
+✔ Resume keywords:
+
+Inference Optimization
+
+LLM Configuration Management
+
+Phase 8 — Documentation & Resume Packaging (CRITICAL)
+Required Artifacts
+
+Architecture diagram
+
+Memory schema diagram
+
+Prompt assembly flowchart
+
+Safety decision tree
+
+README Sections (MANDATORY)
+
+System Architecture
+
+Memory Design
+
+Safety Model
+
+Tradeoffs & Scaling Path
+
+✔ This is what turns the project into money.
+
+Final Resume-Ready One-Liner
+
+Built a production-grade, stateful LLM chatbot with persona persistence, long-term memory via RAG, relationship modeling, and safety-aware prompt orchestration using FastAPI, local LLM inference, and vector search.

@@ -1,0 +1,55 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+dist/
+build/
+.next/
+.turbo/
+
+# Docker
+*.log
+.docker/
+docker-compose.override.yml
+docker-compose.*.override.yml
+
+# Local LLM / AI artifacts
+models/
+checkpoints/
+*.bin
+*.pt
+*.pth
+*.safetensors
+*.gguf
+*.onnx
+data/raw/
+data/cache/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs & runtime
+logs/
+tmp/
