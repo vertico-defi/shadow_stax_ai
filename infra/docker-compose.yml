@@ -35,7 +35,7 @@ services:
     environment:
       - PYTHONPATH=/app
       - LLM_BASE_URL=${LLM_BASE_URL:-http://ollama:11434}
-      - LLM_MODEL=${LLM_MODEL:-NousResearch/Hermes-3-Llama-3.1-8B}
+      - LLM_MODEL=${LLM_MODEL:-llama3.1:8b}
       - LLM_API_MODE=${LLM_API_MODE:-ollama}
       - LLM_MAX_TOKENS_DEFAULT=${LLM_MAX_TOKENS_DEFAULT:-512}
       - LLM_CONCURRENCY_LIMIT=${LLM_CONCURRENCY_LIMIT:-8}
@@ -44,10 +44,12 @@ services:
       - RATE_LIMIT_BURST=${RATE_LIMIT_BURST:-10}
       - CONVERSATION_TTL_SECONDS=${CONVERSATION_TTL_SECONDS:-0}
       - SAFETY_BLOCKLIST_ENABLED=${SAFETY_BLOCKLIST_ENABLED:-true}
+      - MEMORY_DB_PATH=/data/app.db
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     volumes:
       - ..:/app
+      - sqlite_data:/data
     working_dir: /app/apps/chatbot/backend
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
@@ -68,3 +70,4 @@ services:
 volumes:
   llm_cache:
   ollama:
+  sqlite_data:
