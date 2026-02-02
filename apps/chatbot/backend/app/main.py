@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routes import chat, health
+from app.db.sqlite import init_db
+from app.routes import auth, chat, feedback, health
+from app.services.persona_loader import load_default_persona
 from shared.config.settings import get_settings
 from shared.logging.logger import get_logger
 
@@ -18,8 +20,12 @@ app.add_middleware(
 )
 app.include_router(health.router)
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
+app.include_router(auth.router)
+app.include_router(feedback.router)
 
 
 @app.on_event("startup")
 def startup_event() -> None:
+    init_db()
+    load_default_persona()
     logger.info("backend_startup env=%s", settings.app_env)

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Persona",
+  "type": "object",
+  "required": [
+    "name",
+    "role",
+    "tone",
+    "speaking_style",
+    "boundaries",
+    "refusal_templates",
+    "goals",
+    "likes",
+    "dislikes"
+  ],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "role": { "type": "string", "minLength": 1 },
+    "tone": { "type": "string", "minLength": 1 },
+    "speaking_style": { "type": "string", "minLength": 1 },
+    "boundaries": {
+      "type": "object",
+      "required": ["allowed", "refuse"],
+      "properties": {
+        "allowed": { "type": "array", "items": { "type": "string" } },
+        "refuse": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "refusal_templates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "redirect_templates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "goals": { "type": "array", "items": { "type": "string" } },
+    "likes": { "type": "array", "items": { "type": "string" } },
+    "dislikes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

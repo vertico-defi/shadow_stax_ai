@@ -43,6 +43,17 @@ checkpoints/
 data/raw/
 data/cache/
 
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+
+# Local runtime data (app-specific)
+apps/**/data/*
+!**/.gitkeep
+
 # OS / Editor
 .DS_Store
 Thumbs.db

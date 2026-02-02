@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class ChatMessage(BaseModel):
+    id: int | None = None
     role: str = Field(..., examples=["user", "assistant"])
     content: str
 
@@ -17,3 +18,4 @@ class ChatResponse(BaseModel):
     conversation_id: str
     response: ChatMessage
     status: str = "ok"
+    message_id: int | None = None
